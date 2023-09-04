@@ -1,12 +1,9 @@
 package impl
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"go.elastic.co/apm/module/apmhttp/v2"
 	"log"
-	"net/http"
 	"reflect"
 	"splunk-test/controller"
 	"splunk-test/service"
@@ -28,19 +25,19 @@ func (p productController) List(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(`"error":Internal Server error`)
 	}
 
-	var data map[string]interface{}
-	req, _ := http.NewRequest("GET", "http://localhost:8083/test-data", nil)
-	client := apmhttp.WrapClient(http.DefaultClient)
-	resp, err := client.Do(req.WithContext(c.Context()))
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-	err = json.NewDecoder(resp.Body).Decode(&data)
-	if err != nil {
-		panic(err)
-	}
-	//fmt.Print(data)
+	//var data map[string]interface{}
+	//req, _ := http.NewRequest("GET", "http://localhost:8083/test-data", nil)
+	//client := apmhttp.WrapClient(http.DefaultClient)
+	//resp, err := client.Do(req.WithContext(c.Context()))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//defer resp.Body.Close()
+	//err = json.NewDecoder(resp.Body).Decode(&data)
+	//if err != nil {
+	//	panic(err)
+	//}
+	////fmt.Print(data)
 	return c.Status(fiber.StatusOK).JSON(products)
 }
 
